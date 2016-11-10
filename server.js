@@ -1,7 +1,7 @@
 // server.js
 // SERVER-SIDE JAVASCRIPT
 
-
+var db = require('./models');
 /////////////////////////////
 //  SETUP and CONFIGURATION
 /////////////////////////////
@@ -70,8 +70,10 @@ app.get('/', function (req, res) {
 // get all books
 app.get('/api/books', function (req, res) {
   // send all books as JSON response
-  console.log('books index');
-  res.json(books);
+  db.Book.find(function(err, books){
+    if (err) { return console.log("index error: " + err); }
+    res.json(books);
+  });
 });
 
 // get one book
